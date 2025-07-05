@@ -1,0 +1,2 @@
+[build]
+  functions = "api"  # 设置函数目录路径为 api
