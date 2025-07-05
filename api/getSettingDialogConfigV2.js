@@ -5,7 +5,7 @@ export default function handler(req, res) {
   res.setHeader('X-C-M', 'XTeuJEeiVe5160gIP5GHYA==');
   res.status(200).json({
     code: 0,
-    data: "getSettingDialogConfigV2",
+    data: "getSettingDialogConfigV28888888888888888888888888888",
     message: null
   });
 }
