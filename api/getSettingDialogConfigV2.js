@@ -16,12 +16,7 @@ exports.handler = async (event, context) => {
     headers['X-W-I'] = 'ChHsh9+LpfWCCRto9E3133NZUM7PgI1TJvsl1dsA9LU=';
     headers['X-C-M'] = 'XTeuJEeiVe5160gIP5GHYA==';
   } else if (method === 'GET') {
-    responseData = {
-      code: 0,
-      data: 'cNqck',
-      message: null
-    };
-    // 不添加自定义响应头
+    responseData =  '两只老虎跑得快，一只没有耳朵一直没有尾巴，真奇怪';
   } else {
     return {
       statusCode: 405,
