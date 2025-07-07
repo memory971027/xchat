@@ -1,6 +1,10 @@
 exports.handler = async (event, context) => {
   const method = event.httpMethod;
-
+  try {
+    console.log('请求内容:', event.body);
+  } catch (error) {
+    //TODO handle the exception
+  }
   let responseData;
 
   let headers = {
