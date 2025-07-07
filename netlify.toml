@@ -1,2 +1,3 @@
 [build]
   functions = "api"  # 设置函数目录路径为 api
+  publish = "public"  # 如果有静态文件，可以设置发布目录为 public
