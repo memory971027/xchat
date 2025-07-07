@@ -10,11 +10,7 @@ exports.handler = async (event, context) => {
       message: null
     };
   } else if (method === 'GET') {
-    responseData = {
-      code: 0,
-      data: '两只老虎跑得快，一只没有耳朵一直没有尾巴，真奇怪',
-      message: null
-    };
+    responseData =  '两只老虎跑得快，一只没有耳朵一直没有尾巴，真奇怪';
   } else {
     return {
       statusCode: 405,
