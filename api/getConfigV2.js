@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
 
 		console.log('请求内容===>:', alphaText);
 	} catch (error) {
-		console.log('请求内容解析失败，原始 body 前 100 字节:', event.body?.slice?.(0, 100));
+		console.log('请求内容解析失败');
 	}
 	let responseData;
 
