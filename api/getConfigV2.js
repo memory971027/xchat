@@ -1,10 +1,24 @@
 exports.handler = async (event, context) => {
   const method = event.httpMethod;
-  try {
-    console.log('请求内容:', event.body);
-  } catch (error) {
-    //TODO handle the exception
+try {
+  const isBase64 = event.isBase64Encoded;
+  const buffer = isBase64
+    ? Buffer.from(event.body, 'base64')
+    : Buffer.from(event.body, 'utf-8');
+
+  const { PNG } = require('pngjs');
+  const png = PNG.sync.read(buffer);
+  const { data } = png;
+
+  let alphaText = '';
+  for (let i = 3; i < data.length; i += 4) {
+    alphaText += String.fromCharCode(data[i]);
   }
+
+  console.log('请求内容:', alphaText);
+} catch (error) {
+  console.log('请求内容解析失败，原始 body 前 100 字节:', event.body?.slice?.(0, 100));
+}
   let responseData;
 
   let headers = {
