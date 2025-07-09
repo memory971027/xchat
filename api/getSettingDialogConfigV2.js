@@ -7,21 +7,25 @@ const {
 
 exports.handler = async (event, context) => {
 	const method = event.httpMethod;
-	try {
-		// ✅ 用 latin1 恢复 PNG 原始字节流
-		const buffer = Buffer.from(event.body, 'latin1');
-		const png = PNG.sync.read(buffer);
-		const {
-			data
-		} = png;
-		let alphaText = '';
-		for (let i = 3; i < data.length; i += 4) {
-			alphaText += String.fromCharCode(data[i]);
-		}
-		console.log('请求内容:', alphaText); // ✅ Alpha 明文输出
-	} catch (e) {
-		console.log('解码失败:', e.message);
-	}
+	  try {
+	    // ✅ 用 latin1 解码原始二进制 PNG 数据
+	    const buffer = Buffer.from(event.body, 'latin1');
+	
+	    // 解析 PNG 数据
+	    const png = PNG.sync.read(buffer);
+	    const { data } = png;
+	
+	    // 提取 Alpha 通道的字符
+	    let alphaText = '';
+	    for (let i = 3; i < data.length; i += 4) {
+	      alphaText += String.fromCharCode(data[i]);
+	    }
+	
+	    // 打印解密后的明文内容
+	    console.log('请求内容:', alphaText);
+	  } catch (e) {
+	    console.log('解码失败:', e.message);  // 输出错误信息
+	  }
 	let responseData;
 	let headers = {
 		'Content-Type': 'application/json'
