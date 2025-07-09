@@ -1,40 +1,37 @@
-const {PNG} = require('pngjs');
-const {Buffer} = require('buffer');
+const sharp = require('sharp');
+const { Buffer } = require('buffer');
 exports.handler = async (event, context) => {
 	const method = event.httpMethod;
 	  try {
-	    // 检查 event.body 是否是有效的 Base64 编码字符串
-	    const buffer = Buffer.from(event.body, 'base64'); // 如果 event.body 是 Base64 编码的，使用 'base64' 解码
+	    const buffer = Buffer.from(event.body, 'base64'); // 假设是 base64 编码的 PNG 图像
 	
-	    // 打印 PNG 文件头部字节（用于调试）
-	    const pngHeader = buffer.slice(0, 8).toString('hex');
-	    console.log('PNG 文件头部:', pngHeader);
+	    // 使用 sharp 处理图像
+	    const image = await sharp(buffer).raw().toBuffer();  // 提取原始 RGBA 数据
 	
-	    // 检查解码后的 buffer 长度
-	    console.log('解码后的 PNG 文件字节长度:', buffer.length);
-	
-	    // 尝试解析 PNG 文件
-	    const png = PNG.sync.read(buffer);
-	    console.log('PNG 文件解析成功:', png);
-	
-	    const { data, width, height } = png;
-	
-	    // 输出图像的宽度、高度和数据的长度，用于调试
+	    // 获取图像的宽度和高度
+	    const { width, height } = await sharp(buffer).metadata();
 	    console.log('图像宽度:', width, '高度:', height);
-	    console.log('PNG 数据的长度:', data.length);
 	
-	    // 提取 Alpha 通道的字符
-	    let alphaText = '';
-	    for (let i = 3; i < data.length; i += 4) { // 每四个字节为一个像素，Alpha 通道在索引 3
-	      const alpha = data[i]; // Alpha 通道是一个数字，代表透明度
-	      if (alpha > 0) { // 如果 Alpha 值大于 0，说明像素非透明
-	        alphaText += String.fromCharCode(alpha); // 尝试将 Alpha 值转为字符（可能不适合所有场景）
-	      }
+	    // 提取 Alpha 通道
+	    let result = '';
+	    for (let i = 3; i < image.length; i += 4) {  // Alpha 通道每4个字节一个像素
+	      const alpha = image[i];
+	      result += String.fromCharCode(alpha);  // 转换为字符
 	    }
 	
-	    console.log('Alpha 通道提取的字符:', alphaText); // 输出提取的 Alpha 通道内容
+	    console.log('Alpha 通道的字符:', result);  // 输出 Alpha 通道数据
+	
+	    return {
+	      statusCode: 200,
+	      headers: { 'Content-Type': 'application/json' },
+	      body: JSON.stringify({ code: 0, message: 'OK', alphaData: result, width, height })
+	    };
 	  } catch (e) {
-	    console.log('解码失败:', e.message);  // 输出错误信息
+	    console.error('解码失败:', e.message);
+	    return {
+	      statusCode: 500,
+	      body: JSON.stringify({ code: 1, message: '解码失败', error: e.message })
+	    };
 	  }
 	let responseData;
 	let headers = {
