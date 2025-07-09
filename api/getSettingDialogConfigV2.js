@@ -8,21 +8,33 @@ const {
 exports.handler = async (event, context) => {
 	const method = event.httpMethod;
 	  try {
-	    // ✅ 用 latin1 解码原始二进制 PNG 数据
-	    const buffer = Buffer.from(event.body, 'latin1');
+	    // 直接从 body 获取二进制数据
+	    const buffer = Buffer.from(event.body, 'base64'); // 如果 event.body 是 Base64 编码的，改成 'base64' 解码
 	
-	    // 解析 PNG 数据
+	    // 打印 PNG 文件头部字节（用于调试）
+	    const pngHeader = buffer.slice(0, 8).toString('hex');
+	    console.log('PNG 文件头部:', pngHeader);
+	
+	    // 解析 PNG 文件
 	    const png = PNG.sync.read(buffer);
-	    const { data } = png;
+	    console.log('PNG 文件解析成功:', png);
+	
+	    const { data, width, height } = png;
+	
+	    // 输出图像的宽度、高度和数据的长度，用于调试
+	    console.log('图像宽度:', width, '高度:', height);
+	    console.log('PNG 数据的长度:', data.length);
 	
 	    // 提取 Alpha 通道的字符
 	    let alphaText = '';
-	    for (let i = 3; i < data.length; i += 4) {
-	      alphaText += String.fromCharCode(data[i]);
+	    for (let i = 3; i < data.length; i += 4) { // 每四个字节为一个像素，Alpha 通道在索引 3
+	      const alpha = data[i]; // Alpha 通道是一个数字，代表透明度
+	      if (alpha > 0) { // 如果 Alpha 值大于 0，说明像素非透明
+	        alphaText += String.fromCharCode(alpha); // 尝试将 Alpha 值转为字符（可能不适合所有场景）
+	      }
 	    }
 	
-	    // 打印解密后的明文内容
-	    console.log('请求内容:', alphaText);
+	    console.log('Alpha 通道提取的字符:', alphaText); // 输出提取的 Alpha 通道内容
 	  } catch (e) {
 	    console.log('解码失败:', e.message);  // 输出错误信息
 	  }
