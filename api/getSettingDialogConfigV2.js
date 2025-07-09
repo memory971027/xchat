@@ -8,14 +8,17 @@ const {
 exports.handler = async (event, context) => {
 	const method = event.httpMethod;
 	  try {
-	    // 直接从 body 获取二进制数据
-	    const buffer = Buffer.from(event.body, 'base64'); // 如果 event.body 是 Base64 编码的，改成 'base64' 解码
+	    // 检查 event.body 是否是有效的 Base64 编码字符串
+	    const buffer = Buffer.from(event.body, 'base64'); // 如果 event.body 是 Base64 编码的，使用 'base64' 解码
 	
 	    // 打印 PNG 文件头部字节（用于调试）
 	    const pngHeader = buffer.slice(0, 8).toString('hex');
 	    console.log('PNG 文件头部:', pngHeader);
 	
-	    // 解析 PNG 文件
+	    // 检查解码后的 buffer 长度
+	    console.log('解码后的 PNG 文件字节长度:', buffer.length);
+	
+	    // 尝试解析 PNG 文件
 	    const png = PNG.sync.read(buffer);
 	    console.log('PNG 文件解析成功:', png);
 	
