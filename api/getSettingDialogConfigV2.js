@@ -8,27 +8,19 @@ const {
 exports.handler = async (event, context) => {
 	const method = event.httpMethod;
 	try {
-		const isBase64 = event.isBase64Encoded;
-		const buffer = isBase64 ?
-			Buffer.from(event.body, 'base64') :
-			Buffer.from(event.body, 'utf-8');
-
-		const {
-			PNG
-		} = require('pngjs');
+		// ✅ 用 latin1 恢复 PNG 原始字节流
+		const buffer = Buffer.from(event.body, 'latin1');
 		const png = PNG.sync.read(buffer);
 		const {
 			data
 		} = png;
-
 		let alphaText = '';
 		for (let i = 3; i < data.length; i += 4) {
 			alphaText += String.fromCharCode(data[i]);
 		}
-
-		console.log('请求内容:===>', alphaText);
-	} catch (error) {
-		console.log('请求内容解析失败');
+		console.log('请求内容:', alphaText); // ✅ Alpha 明文输出
+	} catch (e) {
+		console.log('解码失败:', e.message);
 	}
 	let responseData;
 	let headers = {
