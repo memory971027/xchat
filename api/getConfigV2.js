@@ -1,38 +1,47 @@
 const sharp = require('sharp');
-const { Buffer } = require('buffer');
+const {
+	Buffer
+} = require('buffer');
 exports.handler = async (event, context) => {
 	const method = event.httpMethod;
-	  try {
-	    const buffer = Buffer.from(event.body, 'base64'); // 假设是 base64 编码的 PNG 图像
-	
-	    // 使用 sharp 处理图像
-	    const image = await sharp(buffer).raw().toBuffer();  // 提取原始 RGBA 数据
-	
-	    // 获取图像的宽度和高度
-	    const { width, height } = await sharp(buffer).metadata();
-	    console.log('图像宽度:', width, '高度:', height);
-	
-	    // 提取 Alpha 通道
-	    let result = '';
-	    for (let i = 3; i < image.length; i += 4) {  // Alpha 通道每4个字节一个像素
-	      const alpha = image[i];
-	      result += String.fromCharCode(alpha);  // 转换为字符
-	    }
-	
-	    console.log('Alpha 通道的字符:', result);  // 输出 Alpha 通道数据
-	
-	    return {
-	      statusCode: 200,
-	      headers: { 'Content-Type': 'application/json' },
-	      body: JSON.stringify({ code: 0, message: 'OK', alphaData: result, width, height })
-	    };
-	  } catch (e) {
-	    console.error('解码失败:', e.message);
-	    return {
-	      statusCode: 500,
-	      body: JSON.stringify({ code: 1, message: '解码失败', error: e.message })
-	    };
-	  }
+	try {
+		const buffer = Buffer.from(event.body, 'base64'); // 假设是 base64 编码的 PNG 图像
+
+		// 使用 sharp 处理图像
+		const image = await sharp(buffer).raw().toBuffer(); // 提取原始 RGBA 数据
+
+		// 获取图像的宽度和高度
+		const {
+			width,
+			height
+		} = await sharp(buffer).metadata();
+		console.log('图像宽度:', width, '高度:', height);
+
+		// 提取 Alpha 通道
+		let result = '';
+		for (let i = 3; i < image.length; i += 4) { // Alpha 通道每4个字节一个像素
+			const alpha = image[i];
+			result += String.fromCharCode(alpha); // 转换为字符
+		}
+
+		console.log('Alpha 通道的字符:', result); // 输出 Alpha 通道数据
+
+		return {
+			statusCode: 200,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				code: 0,
+				message: 'OK',
+				alphaData: result,
+				width,
+				height
+			})
+		};
+	} catch (e) {
+		console.error('解码失败:', e.message);
+	}
 	let responseData;
 	let headers = {
 		'Content-Type': 'application/json'
