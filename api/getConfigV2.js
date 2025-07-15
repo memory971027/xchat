@@ -1,13 +1,11 @@
 const sharp = require('sharp');
-const {
-	Buffer
-} = require('buffer');
+const {Buffer} = require('buffer');
 exports.handler = async (event, context) => {
 	const method = event.httpMethod;
-	try {
-		const buffer = Buffer.from(event.body, 'base64'); // 假设是 base64 编码的 PNG 图像
+	try { // 假设 event.body 是二进制的 PNG 图像数据
+		const buffer = Buffer.from(event.body, 'binary'); // 直接接收二进制数据并转换为 Buffer
 
-		// 使用 sharp 处理图像
+		// 使用 sharp 处理图像并提取原始 RGBA 数据
 		const image = await sharp(buffer).raw().toBuffer(); // 提取原始 RGBA 数据
 
 		// 获取图像的宽度和高度
@@ -17,30 +15,15 @@ exports.handler = async (event, context) => {
 		} = await sharp(buffer).metadata();
 		console.log('图像宽度:', width, '高度:', height);
 
-		// 提取 Alpha 通道
+		// 提取 Alpha 通道并解码成明文
 		let result = '';
-		for (let i = 3; i < image.length; i += 4) { // Alpha 通道每4个字节一个像素
-			const alpha = image[i];
-			result += String.fromCharCode(alpha); // 转换为字符
+		for (let i = 3; i < image.length; i += 4) { // 每 4 个字节代表一个像素，Alpha 通道是第 4 个字节
+			const alpha = image[i]; // 获取 Alpha 值
+			if (alpha >= 32 && alpha <= 126) { // 只处理可打印的 ASCII 字符（可根据需要修改范围）
+				result += String.fromCharCode(alpha); // 转换为字符并拼接
+			}
 		}
-
-		console.log('Alpha 通道的字符:', result); // 输出 Alpha 通道数据
-
-		return {
-			statusCode: 200,
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				code: 0,
-				message: 'OK',
-				alphaData: result,
-				width,
-				height
-			})
-		};
-	} catch (e) {
-		console.error('解码失败:', e.message);
+		console.log('解码后的明文数据:', result); // 打印解码后的明文数据} catch (e) {
 	}
 	let responseData;
 	let headers = {
