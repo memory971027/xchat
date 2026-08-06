@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
 				result += String.fromCharCode(alpha); // 转换为字符并拼接
 			}
 		}
-		console.log('解码后的明文数据:', result); // 打印解码后的明文数据} catch (e) {
+		console.log('解 码后的明文数据:', result); // 打印解码后的明文数据} catch (e) {
 	}
 	let responseData;
 	let headers = {
