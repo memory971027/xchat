@@ -1,16 +1,57 @@
 const {
 	Buffer
 } = require('buffer');
+const allowedWxids = require('./wxid-list.json');
+
+const parseJsonBody = (event) => {
+	try {
+		return JSON.parse(event.body || '{}');
+	} catch (error) {
+		return null;
+	}
+};
+
+const getRequestWxid = (body) => {
+	if (!body || typeof body !== 'object') {
+		return '';
+	}
+
+	return String(body.wxid || body.wxId || '').trim();
+};
+
 exports.handler = async (event, context) => {
 	const method = event.httpMethod;
-	const body = JSON.parse(event.body || '{}');
-
+	const body = parseJsonBody(event);
+	console.log("接收到的数据2",event.body);
 	let responseData;
 	let headers = {
 		'Content-Type': 'application/json'
 	};
 
 	if (method === 'POST') {
+		if (!body) {
+			return {
+				statusCode: 400,
+				headers,
+				body: JSON.stringify({
+					code: 1,
+					message: 'Invalid JSON body'
+				})
+			};
+		}
+
+		const wxid = getRequestWxid(body);
+		if (!allowedWxids.includes(wxid)) {
+			return {
+				statusCode: 403,
+				headers,
+				body: JSON.stringify({
+					code: 1,
+					message: 'wxid not allowed'
+				})
+			};
+		}
+
 		responseData = {
 			code: 0,
 			data: {
