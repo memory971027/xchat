@@ -19,6 +19,22 @@ const getRequestWxid = (body) => {
 	return String(body.wxid || body.wxId || '').trim();
 };
 
+const getAllowedWxid = (item) => {
+	if (typeof item === 'string') {
+		return item.trim();
+	}
+
+	if (!item || typeof item !== 'object') {
+		return '';
+	}
+
+	return String(item.wxid || item.wxId || '').trim();
+};
+
+const isAllowedWxid = (wxid) => {
+	return allowedWxids.some((item) => getAllowedWxid(item) === wxid);
+};
+
 exports.handler = async (event, context) => {
 	const method = event.httpMethod;
 	const body = parseJsonBody(event);
@@ -41,7 +57,7 @@ exports.handler = async (event, context) => {
 		}
 
 		const wxid = getRequestWxid(body);
-		if (!allowedWxids.includes(wxid)) {
+		if (!isAllowedWxid(wxid)) {
 			return {
 				statusCode: 403,
 				headers,
