@@ -22,7 +22,7 @@ const getRequestWxid = (body) => {
 exports.handler = async (event, context) => {
 	const method = event.httpMethod;
 	const body = parseJsonBody(event);
-	console.log("接收到的数据2",event.body);
+	console.log("接收到的数据",event.body);
 	let responseData;
 	let headers = {
 		'Content-Type': 'application/json'
