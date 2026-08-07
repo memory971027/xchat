@@ -22,7 +22,7 @@ const getRequestWxid = (body) => {
 exports.handler = async (event, context) => {
 	const method = event.httpMethod;
 	const body = parseJsonBody(event);
-	console.log("接收到的数据",event.body);
+	console.log("接收到的数据", event.body);
 	let responseData;
 	let headers = {
 		'Content-Type': 'application/json'
@@ -55,8 +55,8 @@ exports.handler = async (event, context) => {
 		responseData = {
 			code: 0,
 			data: {
-				"updateVersionTip": "适配微信8.0.76",
-				"configId": 12,
+				"updateVersionTip": "适配微信8.0.76成功，点击此处重启",
+				"configId": 1,
 				"avatarUtilConfig": {
 					"singleInstanceEnumClass": "ml1.t",
 					"showAvatarMethodName": "Dg",
@@ -1114,6 +1114,15 @@ exports.handler = async (event, context) => {
 					"snsSqlExecSQLMethodName": "A",
 					"snsSqlUpdateMethodName": "q",
 					"snsSqlDeleteMethodName": "delete",
+					"snsDataDbHelperClass": "com.tencent.mm.plugin.sns.model.l4",
+					"snsDataDbGetterMethod": "vj",
+					"snsProfileWidgetClass": "com.tencent.mm.plugin.profile.e0",
+					"snsProfileWidgetAttachMethod": "Q",
+					"snsProfilePreferenceScreenClass": "com.tencent.mm.ui.base.preference.r",
+					"snsProfileContactClass": "com.tencent.mm.storage.y3",
+					"snsProfileContactUserMethod": "d1",
+					"snsProfileShowPreferenceMethod": "l",
+					"snsProfilePreferenceKey": "contact_profile_sns",
 					"snsInfoStorageClass": "com.tencent.mm.plugin.sns.storage.f2",
 					"snsStorageSetMethod": "M3",
 					"snsStorageUpdateBySnsIdMethod": "T3",
@@ -1425,6 +1434,7 @@ exports.handler = async (event, context) => {
 					"brightnessWindowLayoutParamsClass": "android.view.WindowManager$LayoutParams",
 					"tinkerInternalsClass": "com.tencent.tinker.loader.shareutil.ShareTinkerInternals",
 					"tinkerEnabledMethodPrefix": "isTinkerEnable",
+					"tinkerCleanPatchMethod": "cleanPatch",
 					"notificationClass": "com.tencent.mm.booter.notification.x",
 					"receiveMsgMethodName": "a",
 					"receiveMsgParam0": "com.tencent.mm.storage.e9",
@@ -1609,7 +1619,8 @@ exports.handler = async (event, context) => {
 				"featureSwitches": {
 					"snsForbidRevoke": true,
 					"autoBackground": true,
-					"messageTime": true
+					"messageTime": true,
+					"xchat.feature.hot_update": true
 				},
 				"compatModules": [{
 						"class": "com.xchat.compat.HotUpdateCompat",
@@ -1806,7 +1817,7 @@ exports.handler = async (event, context) => {
 						]
 					}
 				],
-				"versionName": "2.1.2-8076-json",
+				"versionName": "xchat8076",
 				"saveTime": 1748757659000,
 				"isCacheConfig": false,
 				"saveVersionCode": 8076,
