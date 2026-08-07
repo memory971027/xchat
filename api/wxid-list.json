@@ -1,10 +1,17 @@
-[
-  {
-    "wxid": "wxid_2867838672112",
-    "remark": "自己的大号"
-  },
-  {
-    "wxid": "wxid_sqki9olu38vj29",
-    "remark": "备用号"
-  }
+[{
+		"wxid": "wxid_2867838672112",
+		"remark": "自己的大号"
+	},
+	{
+		"wxid": "wxid_sqki9olu38vj29",
+		"remark": "备用号"
+	},
+	{
+		"wxid": "ZMZ0101",
+		"remark": "QQ 422143182"
+	},
+	{
+		"wxid": "wxid_w6vx4yiihjjr22",
+		"remark": "QQ 422143182"
+	}
 ]
