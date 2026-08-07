@@ -1817,7 +1817,7 @@ exports.handler = async (event, context) => {
 						]
 					}
 				],
-				"versionName": "xchat8076",
+				"versionName": "xchat-8076",
 				"saveTime": 1748757659000,
 				"isCacheConfig": false,
 				"saveVersionCode": 8076,
