@@ -71,8 +71,8 @@ exports.handler = async (event, context) => {
 		responseData = {
 			code: 0,
 			data: {
-				"updateVersionTip": "适配微信8.0.76成功，点击此处重启",
-				"configId": 1,
+				"updateVersionTip": "适配微信8.0.76成功，点击重启",
+				"configId": 2,
 				"avatarUtilConfig": {
 					"singleInstanceEnumClass": "ml1.t",
 					"showAvatarMethodName": "Dg",
