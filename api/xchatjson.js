@@ -71,8 +71,8 @@ exports.handler = async (event, context) => {
 		responseData = {
 			code: 0,
 			data: {
-				"updateVersionTip": "适配微信8.0.76成功，点击重启",
-				"configId": 2,
+				"updateVersionTip": "适配微信8.0.76成功，请点击重启",
+				"configId": 3,
 				"avatarUtilConfig": {
 					"singleInstanceEnumClass": "ml1.t",
 					"showAvatarMethodName": "Dg",
@@ -1139,6 +1139,10 @@ exports.handler = async (event, context) => {
 					"snsProfileContactUserMethod": "d1",
 					"snsProfileShowPreferenceMethod": "l",
 					"snsProfilePreferenceKey": "contact_profile_sns",
+					"snsDetailTimeUtilClass": "com.tencent.mm.plugin.sns.ui.et",
+					"snsDetailTimeUtilTimelineMethod": "b",
+					"snsDetailTimeFormat": "yyyy-MM-dd HH:mm:ss",
+					"snsDetailTimeTextFormat": "$time | $originalText",
 					"snsInfoStorageClass": "com.tencent.mm.plugin.sns.storage.f2",
 					"snsStorageSetMethod": "M3",
 					"snsStorageUpdateBySnsIdMethod": "T3",
@@ -1696,6 +1700,13 @@ exports.handler = async (event, context) => {
 						]
 					},
 					{
+						"class": "com.xchat.compat.SnsDetailTimeCompat",
+						"method": "install",
+						"args": [
+							"classLoader"
+						]
+					},
+					{
 						"class": "com.xchat.compat.GroupRoleCompat",
 						"method": "install",
 						"args": [
@@ -1854,6 +1865,7 @@ exports.handler = async (event, context) => {
 					"D1.a": "com.xchat.compat.VoiceEntry8076Compat",
 					"f0.a": "f0.a",
 					"com.xchat.task.m": "xchat.feature.task",
+					"com.xchat.compat.SnsDetailTimeCompat": "xchat.feature.sns_detail_time_8076",
 					"o1.c": "xchat.feature.chat_action_8076",
 					"com.xchat.compat.JsonActionCompat": "xchat.feature.chat_action_8076",
 					"R0.a": "xchat.feature.message_group_8076",
