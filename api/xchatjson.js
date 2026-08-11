@@ -72,7 +72,7 @@ exports.handler = async (event, context) => {
 			code: 0,
 			data: {
 				"updateVersionTip": "适配微信8.0.76成功，请点击重启",
-				"configId": 3,
+				"configId": 4,
 				"avatarUtilConfig": {
 					"singleInstanceEnumClass": "ml1.t",
 					"showAvatarMethodName": "Dg",
@@ -1160,6 +1160,7 @@ exports.handler = async (event, context) => {
 					"audioPickerResultActivityClass": "com.tencent.mm.ui.LauncherUI",
 					"audioPickerResultFallbackActivityClass": "com.tencent.mm.ui.chatting.ChattingUI",
 					"audioPickerResultMethod": "onActivityResult",
+					"friendAvatarPickerResultActivityClass": "com.tencent.mm.plugin.profile.ui.ContactInfoUI",
 					"contactInfoActivityClass": "com.tencent.mm.plugin.profile.ui.ContactInfoUI",
 					"chattingUiClass": "com.tencent.mm.ui.chatting.ChattingUI",
 					"homeUiClass": "com.tencent.mm.ui.HomeUI",
@@ -1636,9 +1637,102 @@ exports.handler = async (event, context) => {
 					"minOpacityPercent": "1",
 					"maxOpacityPercent": "80"
 				},
+				"friendAvatarConfig": {
+					"enabledPreferenceKey": "xchat_friend_avatar_enabled",
+					"statusKey": "xchat.feature.friend_avatar_8076",
+					"storageDirName": "XChatFriendAvatar",
+					"contactInfoActivityClass": "com.tencent.mm.plugin.profile.ui.ContactInfoUI",
+					"contactInfoActivityClassContains": ".plugin.profile.ui.ContactInfoUI",
+					"contactUserExtraKeyCount": "5",
+					"contactUserExtraKeys": [
+						"Contact_User",
+						"Chat_User",
+						"RoomInfo_Id",
+						"room_name",
+						"Contact_ChatRoomId"
+					],
+					"pickerAction": "android.intent.action.GET_CONTENT",
+					"pickerType": "image/*",
+					"pickerCategory": "android.intent.category.OPENABLE",
+					"pickerRequestBase": "10086",
+					"avatarCornerRadiusDp": "4",
+					"avatarDecodeMaxPx": "256",
+					"friendAvatarRowHookClass": "fh5.g0",
+					"friendAvatarRowHookMethod": "a",
+					"friendAvatarRowHookArgs": [
+						"int",
+						"fh5.n",
+						"fh5.x",
+						"com.tencent.mm.storage.k4"
+					],
+					"friendAvatarRowHolderArgIndex": "1",
+					"friendAvatarRowConversationArgIndex": "3",
+					"friendAvatarRowAvatarField0": "a",
+					"friendAvatarRowAvatarField1": "f386886a",
+					"friendAvatarHook0Class": "com.tencent.mm.feature.avatar.w",
+					"friendAvatarHook0Method": "ij",
+					"friendAvatarHook0Args": [
+						"android.widget.ImageView",
+						"java.lang.String",
+						"java.lang.String"
+					],
+					"friendAvatarHook1Class": "com.tencent.mm.feature.avatar.w",
+					"friendAvatarHook1Method": "mj",
+					"friendAvatarHook1Args": [
+						"android.widget.ImageView",
+						"java.lang.String"
+					],
+					"friendAvatarHook2Class": "com.tencent.mm.feature.avatar.w",
+					"friendAvatarHook2Method": "nj",
+					"friendAvatarHook2Args": [
+						"android.widget.ImageView",
+						"java.lang.String",
+						"float"
+					],
+					"friendAvatarHook3Class": "com.tencent.mm.feature.avatar.w",
+					"friendAvatarHook3Method": "hj",
+					"friendAvatarHook3Args": [
+						"android.widget.ImageView",
+						"java.lang.String"
+					],
+					"friendAvatarHook4Class": "com.tencent.mm.feature.avatar.w",
+					"friendAvatarHook4Method": "kj",
+					"friendAvatarHook4Args": [
+						"android.widget.ImageView",
+						"java.lang.String",
+						"boolean"
+					],
+					"friendAvatarHook5Class": "com.tencent.mm.feature.avatar.w",
+					"friendAvatarHook5Method": "lj",
+					"friendAvatarHook5Args": [
+						"android.widget.ImageView",
+						"java.lang.String"
+					],
+					"friendAvatarHook6Class": "com.tencent.mm.pluginsdk.ui.u",
+					"friendAvatarHook6Method": "a",
+					"friendAvatarHook6Args": [
+						"android.widget.ImageView",
+						"java.lang.String"
+					],
+					"friendAvatarHook7Class": "com.tencent.mm.pluginsdk.ui.u",
+					"friendAvatarHook7Method": "b",
+					"friendAvatarHook7Args": [
+						"android.widget.ImageView",
+						"java.lang.String",
+						"float",
+						"boolean"
+					],
+					"friendAvatarHook8Class": "com.tencent.mm.pluginsdk.ui.u",
+					"friendAvatarHook8Method": "d",
+					"friendAvatarHook8Args": [
+						"android.widget.ImageView",
+						"java.lang.String"
+					]
+				},
 				"featureSwitches": {
 					"snsForbidRevoke": true,
 					"autoBackground": true,
+					"friendAvatar": true,
 					"messageTime": true,
 					"xchat.feature.hot_update": true
 				},
@@ -1715,6 +1809,13 @@ exports.handler = async (event, context) => {
 					},
 					{
 						"class": "com.xchat.compat.GlobalBackgroundCompat",
+						"method": "install",
+						"args": [
+							"classLoader"
+						]
+					},
+					{
+						"class": "com.xchat.compat.FriendAvatarCompat",
 						"method": "install",
 						"args": [
 							"classLoader"
@@ -1875,7 +1976,9 @@ exports.handler = async (event, context) => {
 					"com.xchat.compat.MessageGroup8076Compat": "xchat.feature.message_group_8076",
 					"com.xchat.compat.MessageGroupMenu8076Compat": "xchat.feature.message_group_8076",
 					"xchat.feature.message_group_8076": "xchat.feature.message_group_8076",
-					"xchat.feature.advanced_pin_8076": "xchat.feature.advanced_pin_8076"
+					"xchat.feature.advanced_pin_8076": "xchat.feature.advanced_pin_8076",
+					"com.xchat.compat.FriendAvatarCompat": "xchat.feature.friend_avatar_8076",
+					"xchat.feature.friend_avatar_8076": "xchat.feature.friend_avatar_8076"
 				}
 			},
 			message: null
