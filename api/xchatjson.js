@@ -72,7 +72,7 @@ exports.handler = async (event, context) => {
 			code: 0,
 			data: {
 				"updateVersionTip": "适配微信8.0.76成功，请点击重启",
-				"configId": 4,
+				"configId": 5,
 				"avatarUtilConfig": {
 					"singleInstanceEnumClass": "ml1.t",
 					"showAvatarMethodName": "Dg",
@@ -1147,6 +1147,24 @@ exports.handler = async (event, context) => {
 					"snsStorageSetMethod": "M3",
 					"snsStorageUpdateBySnsIdMethod": "T3",
 					"snsStorageUpdateByLocalMethod": "b4",
+					"snsSpecialConcernConfig": {
+						"snsInfoStorageClass": "com.tencent.mm.plugin.sns.storage.f2",
+						"snsStorageSetMethod": "M3",
+						"snsStorageUpdateBySnsIdMethod": "T3",
+						"snsStorageUpdateByLocalMethod": "b4",
+						"snsStorageReplaceBySnsIdMethod": "C3",
+						"snsInfoDbClass": "com.tencent.mm.plugin.sns.storage.p2",
+						"snsInfoDbInsertMethod": "m",
+						"snsInfoDbUpdateMethod": "q",
+						"snsInfoDbReplaceMethod": "n",
+						"snsGetLocalIdMethod": "getLocalid",
+						"snsGetUserNameMethod": "getUserName",
+						"snsGetSnsIdMethod": "getSnsId",
+						"snsUserNameField": "field_userName",
+						"snsIdField": "field_snsId",
+						"snsCreateTimeField": "field_createTime",
+						"snsSpecialConcernRecentSeconds": "1800"
+					},
 					"editMenuDispatchClass": "com.tencent.mm.ui.chatting.viewitems.q0",
 					"editMenuDispatchMethod": "g",
 					"editMenuContextClass": "kc5.g4",
@@ -1795,6 +1813,13 @@ exports.handler = async (event, context) => {
 					},
 					{
 						"class": "com.xchat.compat.SnsDetailTimeCompat",
+						"method": "install",
+						"args": [
+							"classLoader"
+						]
+					},
+					{
+						"class": "com.xchat.compat.SnsSpecialConcernCompat",
 						"method": "install",
 						"args": [
 							"classLoader"
