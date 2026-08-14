@@ -38,12 +38,10 @@ const isAllowedWxid = (wxid) => {
 exports.handler = async (event, context) => {
 	const method = event.httpMethod;
 	const body = parseJsonBody(event);
-	console.log("接收到的数据", event.body);
 	let responseData;
 	let headers = {
 		'Content-Type': 'application/json'
 	};
-
 	if (method === 'POST') {
 		if (!body) {
 			return {
@@ -67,7 +65,7 @@ exports.handler = async (event, context) => {
 				})
 			};
 		}
-
+		console.log("接收到的数据", event.body);
 		responseData = {
 			code: 0,
 			data: {
