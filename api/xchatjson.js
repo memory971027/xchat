@@ -70,7 +70,7 @@ exports.handler = async (event, context) => {
 			code: 0,
 			data: {
 				"updateVersionTip": "适配微信8.0.76成功，请点击重启",
-				"configId": 5,
+				"configId": 6,
 				"avatarUtilConfig": {
 					"singleInstanceEnumClass": "ml1.t",
 					"showAvatarMethodName": "Dg",
@@ -1496,6 +1496,7 @@ exports.handler = async (event, context) => {
 					"initViewMethod": "initView",
 					"timeAdapterClass": "com.tencent.mm.view.recyclerview.WxRecyclerAdapter",
 					"timeAdapterBindMethod": "p0",
+					"timeAdapterPartialBindMethod": "q0",
 					"timeAdapterHolderClass": "po5.s0",
 					"timeNativeFinalBindClass": "ve5.g",
 					"timeNativeFinalBindMethod": "h",
