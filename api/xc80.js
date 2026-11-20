@@ -70,7 +70,7 @@ exports.handler = async (event, context) => {
 			code: 0,
 			data: {
 				"updateVersionTip": "适配微信8.0.80成功，请点击重启",
-				"configId": 1,
+				"configId": 2,
 				"avatarUtilConfig": {
 					"singleInstanceEnumClass": "qq1.t",
 					"showAvatarMethodName": "Dg",
@@ -112,6 +112,12 @@ exports.handler = async (event, context) => {
 					"snsSqlRawQueryMethodName": "B",
 					"snsSqlExecSQLMethodName": "A",
 					"snsSqlUpdateMethod": "p",
+					"snsDeleteActionClass": "com.tencent.mm.plugin.sns.model.f3",
+					"snsDeleteActionMethod": "R",
+					"snsDeleteActionArgumentClasses": "gd5.tf6,gd5.sf6,long,long,java.lang.String,com.tencent.mm.sdk.platformtools.n3",
+					"snsPermissionDetailClass": "com.tencent.mm.plugin.sns.model.q2",
+					"snsPermissionDetailMethod": "onGYNetEnd",
+					"snsPermissionDetailArgumentClasses": "int,int,int,java.lang.String,com.tencent.mm.network.y0,byte[]",
 					"sqlBeanClass": "com.tencent.mm.protobuf.f",
 					"fakeLikeConfig": {
 						"userBeanClass": "gd5.mg6",
@@ -601,7 +607,7 @@ exports.handler = async (event, context) => {
 					"newItemGetUserNameMethod": "f",
 					"newTransferUiActivityFieldName": "e",
 					"messageGroupTransferControllerField": "d",
-					"messageGroupTransferControllerPrepareMethod": "f7",
+					"messageGroupTransferControllerPrepareMethod": "K7",
 					"messageGroupRecentProviderClass": "com.tencent.mm.ui.transmit.recent.i",
 					"messageGroupRecentProviderBuildMethod": "a",
 					"messageGroupRecentProviderCacheMethod": "b",
@@ -1558,6 +1564,7 @@ exports.handler = async (event, context) => {
 					"timeMillisThreshold": "100000000000",
 					"timeActualEnabledPreferenceKey": "1010",
 					"timeActualAllowedTypeFieldName": "field_type",
+					"timeActualSystemMessageMethod": "j2",
 					"timeActualAllowedTypes": "1,3,34,43,47,48,49,62,419430449,436207665",
 					"timeActualRequireAvatar": "true",
 					"timeActualAvatarViewId": "0x7f0a0f63",
@@ -1695,6 +1702,11 @@ exports.handler = async (event, context) => {
 					"editMessageItemMessagePath": "d.b",
 					"editMessageRowAsyncFlagField": "g",
 					"editMessageSetContentMethod": "a1",
+					"revokeTipServiceLocatorClass": "zp0.j1",
+					"revokeTipServiceLocatorMethod": "v",
+					"revokeTipServiceInterface": "gp3.c4",
+					"revokeTipStorageMethod": "Oj",
+					"revokeTipInsertMethod": "Zb",
 					"revokeMediaListenerClass": "com.tencent.mm.ui.chatting.RevokeMsgListener",
 					"revokeMediaListenerMethod": "callback",
 					"revokeMediaEventBaseClass": "com.tencent.mm.sdk.event.IEvent",
@@ -1719,19 +1731,8 @@ exports.handler = async (event, context) => {
 					"inputHintVoiceComponentClass": "com.tencent.mm.ui.chatting.component.ya",
 					"inputHintVoiceBuilderMethod": "H0",
 					"inputHintFooterMethod": "setHint",
-					"preventAtDispatcherClass": "com.tencent.mm.booter.notification.m0",
-					"preventAtDispatcherMethod": "b",
-					"preventAtMessageClass": "com.tencent.mm.storage.f9",
-					"preventAtConversationListenerClass": "com.tencent.mm.storage.h9",
-					"preventAtConversationListenerMethod": "f",
-					"preventAtContactUtilClass": "w41.e2",
-					"preventAtRoomNotifyMethod": "K",
-					"preventAtAllMethod": "r2",
-					"preventAtSelfUserClass": "w41.z1",
-					"preventAtSelfUserMethod": "u",
 					"groupSelfUserClass": "w41.z1",
 					"groupSelfUserMethod": "u",
-					"preventAtSelfMethod": "s2",
 					"hotUpdatePatchServiceClass": "com.tencent.tinker.lib.service.TinkerPatchService",
 					"hotUpdatePatchServiceMethod": "onHandleIntent",
 					"updateNoticeClass": "aw1.x0",
@@ -2073,13 +2074,6 @@ exports.handler = async (event, context) => {
 					},
 					{
 						"class": "com.xchat.compat.InputHintCompat",
-						"method": "install",
-						"args": [
-							"classLoader"
-						]
-					},
-					{
-						"class": "com.xchat.compat.PreventAtCompat",
 						"method": "install",
 						"args": [
 							"classLoader"
