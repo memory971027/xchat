@@ -70,7 +70,7 @@ exports.handler = async (event, context) => {
 			code: 0,
 			data: {
 				"updateVersionTip": "适配微信8.0.80成功，请点击重启",
-				"configId": 2,
+				"configId": 3,
 				"avatarUtilConfig": {
 					"singleInstanceEnumClass": "qq1.t",
 					"showAvatarMethodName": "Dg",
@@ -112,12 +112,6 @@ exports.handler = async (event, context) => {
 					"snsSqlRawQueryMethodName": "B",
 					"snsSqlExecSQLMethodName": "A",
 					"snsSqlUpdateMethod": "p",
-					"snsDeleteActionClass": "com.tencent.mm.plugin.sns.model.f3",
-					"snsDeleteActionMethod": "R",
-					"snsDeleteActionArgumentClasses": "gd5.tf6,gd5.sf6,long,long,java.lang.String,com.tencent.mm.sdk.platformtools.n3",
-					"snsPermissionDetailClass": "com.tencent.mm.plugin.sns.model.q2",
-					"snsPermissionDetailMethod": "onGYNetEnd",
-					"snsPermissionDetailArgumentClasses": "int,int,int,java.lang.String,com.tencent.mm.network.y0,byte[]",
 					"sqlBeanClass": "com.tencent.mm.protobuf.f",
 					"fakeLikeConfig": {
 						"userBeanClass": "gd5.mg6",
